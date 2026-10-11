@@ -10,8 +10,11 @@ aliases:
   - deployment
   - pod
 ---
-## Kubernetes CLI 실습
-### 1. Namespace 배포 및 조회
+
+# Kubernetes CLI and Microservices Deployment
+
+## Kubernetes CLI Lab
+### 1. Deploying and Inspecting Namespaces
 ```sh
 # kpaas 네임스페이스 배포
 $ kubectl create ns kpaas
@@ -25,7 +28,7 @@ $ kubectl describe ns kpaas
 <img width="1741" height="634" alt="Pasted image 20260105104832" src="https://github.com/user-attachments/assets/3daae8bf-9a02-4e83-95fb-04571f90954c" />
 <img width="1489" height="321" alt="Pasted image 20260105104957" src="https://github.com/user-attachments/assets/e12ae6d8-3924-49fb-afbc-8f1ff74289f5" />
 
-###### yaml: namespace 배포
+###### YAML: Namespace Deployment
 ```yaml
 # ns-kpaas.yaml
 apiVersion: v1
@@ -41,7 +44,7 @@ $ kubectl apply -f ns-kpaas.yaml
 ```
 <img width="626" height="435" alt="Pasted image 20260113152025" src="https://github.com/user-attachments/assets/afbe0ba4-2e34-4ee2-b212-4aa194bc590e" />
 
-### 2. Pod 배포 및 조회
+### 2. Deploying and Inspecting Pods
 ```sh
 # kpaas-nginx Pod 배포
 # nginx:1.25 컨테이너 이미지를 kpaas namespace에 격리하여 배포
@@ -55,7 +58,7 @@ $ kubectl describe pod kpaas-nginx -n kpaas
 ```
 <img width="2306" height="1087" alt="Pasted image 20260105105308" src="https://github.com/user-attachments/assets/cc623375-aee4-4a59-a4ae-6fa89ed3a16c" />
 
-###### yaml: Pod 배포
+###### YAML: Pod Deployment
 ```yaml
 # nginx-pod.yaml
 apiVersion: v1
@@ -75,7 +78,7 @@ $ kubectl apply -f nginx-pod.yaml
 ```
 <img width="1673" height="454" alt="Pasted image 20260113152554" src="https://github.com/user-attachments/assets/c8d6524d-7088-442c-a931-a26f40e0b382" />
 
-### 3. Service 배포
+### 3. Service Deployment
 ```sh
 # Service 배포 (Pod 연결)
 $ kubectl expose pod kpaas-nginx --type=NodePort --port 80 --target-port=80 --name=kpaas-nginx -n kpaas
@@ -99,7 +102,7 @@ $ kubectl describe service kpaas-nginx -n kpaas
 ```
 <img width="2132" height="777" alt="Pasted image 20260105105644" src="https://github.com/user-attachments/assets/27714e62-d3d1-4a5b-815a-6bd3bf94b55c" />
 
-###### yaml: Service 배포
+###### YAML: Service Deployment
 ```yaml
 # nginx-svc.yaml
 apiVersion: v1
@@ -124,8 +127,8 @@ $ kubectl apply -f nginx-pod.yaml
 ```
 <img width="1279" height="531" alt="Pasted image 20260113152936" src="https://github.com/user-attachments/assets/fe236ba8-a102-4e52-98ff-4d518a67a58c" />
 
-### 4. Deployment 배포
-#### 4-1. Deployment 배포
+### 4. Deployment Creation
+#### 4-1. Creating a Deployment
 ```sh
 # Deployment 배포
 $ kubectl create deployment kpaas-nginx2 --image=nginx:1.26 --port=80 --replicas=2 -n kpaas
@@ -144,7 +147,7 @@ $ kubectl describe pod kpaas-nginx2 -n kpaas
 	- `kpaas-nginx2` Pod 2개 생성
 <img width="2345" height="945" alt="Pasted image 20260105110403" src="https://github.com/user-attachments/assets/587c4335-101e-4b0e-b9b9-600fdb7e8bac" />
 
-###### yaml: Deployment 배포
+###### YAML: Deployment Creation
 ```yaml
 # nginx2-deploy.yaml
 apiVersion: apps/v1
@@ -176,7 +179,7 @@ $ kubectl describe pod kpaas-nginx2 -n kpaas
 ```
 <img width="1258" height="472" alt="Pasted image 20260113153816" src="https://github.com/user-attachments/assets/62db2dc5-a9c4-4f75-8492-9e8d0a6d67b5" />
 
-#### 4-2. Deployment에 Service 연결
+#### 4-2. Connecting a Service to a Deployment
 ```sh
 # Service 배포 (Deployment 연결)
 $ kubectl expose deploy kpaas-nginx2 --type=NodePort --port=80 --target-port=80 --name=kpaas-nginx2 -n kpaas
@@ -215,7 +218,7 @@ $ kubectl describe svc kpaas-nginx2 -n kpaas
 ```
 <img width="928" height="381" alt="Pasted image 20260113154037" src="https://github.com/user-attachments/assets/cacc84f8-17a3-4cb5-a8b2-0823b5493a3f" />
 
-#### 4-3. Deployment 설정 변경
+#### 4-3. Updating Deployment Configuration
 ```sh
 # Deployment의 replicas 설정 변경
 $ kubectl edit deploy kpaas-nginx2 -n kpaas
@@ -228,7 +231,7 @@ $ kubectl get pod -n kpaas
 <img width="1906" height="488" alt="Pasted image 20260105111306" src="https://github.com/user-attachments/assets/9c0011bc-18f2-48fa-95f8-819f0d6da703" />
 <img width="1497" height="624" alt="Pasted image 20260105111521" src="https://github.com/user-attachments/assets/08aed928-9853-4d48-bf0b-954ec29798ce" />
 
-### 5. 실습 후 리소스 초기화
+### 5. Resetting Resources After the Lab
 ```sh
 $ kubectl delete -f .
 pod "kpaas-nginx" deleted
@@ -239,7 +242,7 @@ namespace "kpaas" deleted
 ```
 <img width="706" height="92" alt="Pasted image 20260113154642" src="https://github.com/user-attachments/assets/4c42b85a-1525-4b0e-b846-421f2148ed9d" />
 
-## Container Platform 서비스 활용 MSA application 구축
+## Building a Microservices Application with Container Platform Services
 - MSA Sample 가이드 주소: https://github.com/K-PaaS/msa-sample
 <img width="2081" height="961" alt="Pasted image 20260112163651" src="https://github.com/user-attachments/assets/f206b177-6985-41d2-a93c-7ca482efefd2" />
 
@@ -286,13 +289,13 @@ openbao-agent-injector-6567764cc9-7zx8l   1/1     Running   3          4d20h
 ```
 <img width="2018" height="1278" alt="Pasted image 20260105112402" src="https://github.com/user-attachments/assets/ecffccaa-fcbc-42b3-914f-321b5f6da548" />
 
-###### `openbao`가 작동하지 않으면 `503` Error
+###### `503` Error When `openbao` Is Not Working
 - `https://portal.133.186.xxx.xxx.nip.io/`
 <img width="895" height="356" alt="Pasted image 20260105104624" src="https://github.com/user-attachments/assets/59cb9cdc-4138-4cf9-9d6d-ea0d3ed6c49f" />
 <img width="917" height="172" alt="Pasted image 20260105110428" src="https://github.com/user-attachments/assets/db465d7c-9976-4eab-816e-40fd7ce2ec99" />
 
-### 1. 환경변수 배포
-#### 1-1. 포털 사용자 로그인
+### 1. Environment Variable Configuration
+#### 1-1. Portal User Login
 ```sh
 $ kubectl get ingress -A
 # portal.133.186.xxx.xxx.nip.io 접속
@@ -300,7 +303,7 @@ $ kubectl get ingress -A
 # Username: admin
 # Password: 
 ```
-#### 1-2. `Configmap` 생성
+#### 1-2. Creating a `ConfigMap`
 - [ConfigMap YAML 링크](https://github.com/K-PaaS/msa-sample/blob/master/resource/configmap.yml)
 - `{K8S_MASTER_NODE_IP}`에 Control Plane Node의 Public IP 주소 입력
 ```sh
@@ -317,8 +320,8 @@ data:
 ```
 <img width="1061" height="694" alt="Pasted image 20260105114052" src="https://github.com/user-attachments/assets/48bfc62c-3430-4402-ba15-8dfb1fc0fcfb" />
 
-### 2. Repository 생성
-#### 2-1. K-PaaS SCM 포털에 빈 저장소 생성
+### 2. Repository Creation
+#### 2-1. Creating an Empty Repository in the K-PaaS SCM Portal
 <img width="1045" height="802" alt="Pasted image 20260105114837" src="https://github.com/user-attachments/assets/a44fb0a3-1168-41cf-b25f-0ea4918862b8" />
 
 #### 2-2. `git clone` 
@@ -327,7 +330,7 @@ data:
 	- 저장소 자체를 이동시키기 위함
 <img width="1758" height="1092" alt="Pasted image 20260105114612" src="https://github.com/user-attachments/assets/b3b12096-3385-446d-9539-e3368ebe38c8" />
 
-#### 2-3. SCM 서버로 전송
+#### 2-3. Pushing to the SCM Server
 - 다운로드한 디렉토리 내부로 이동 후
 - 내부 SCM 서버로 데이터를 전송한다.
 	- `git push --mirror [SCM_URL]`
@@ -341,8 +344,8 @@ data:
 <img width="2331" height="519" alt="Pasted image 20260105115442" src="https://github.com/user-attachments/assets/12ec862f-812b-479d-a8f2-e1039d256778" />
 <img width="933" height="769" alt="Pasted image 20260105115503" src="https://github.com/user-attachments/assets/d9525e1a-145e-43d7-931b-1d6d4903af14" />
 
-### 3. 파이프라인 설정
-#### 3-1. Kube Config 조회 및 등록
+### 3. Pipeline Configuration
+#### 3-1. Retrieving and Registering Kube Config
 ```sh
 $ ls .kube
 $ cat .kube/kubeconfig # config 조회
@@ -377,7 +380,7 @@ users:
 - 파이프라인 관리 - Kubernetes 정보 관리 - Kube Config 등록
 <img width="755" height="296" alt="Pasted image 20260105121303" src="https://github.com/user-attachments/assets/534d1421-5544-46f2-87ff-e021df1117ac" />
 
-### 4. 파이프라인 생성
+### 4. Pipeline Creation
 <img width="919" height="176" alt="Pasted image 20260105121410" src="https://github.com/user-attachments/assets/4cb10e0c-a0c1-41e9-97ed-5a88b7cee6a1" />
 <img width="853" height="801" alt="Pasted image 20260105121649" src="https://github.com/user-attachments/assets/0c8f0845-95f6-4e53-947e-9a3c067d4014" />
 - `openjdk` $\rightarrow$ `amazoncorretto` 이미지 변경

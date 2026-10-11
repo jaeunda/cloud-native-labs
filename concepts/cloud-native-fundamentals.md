@@ -12,6 +12,9 @@ aliases:
   - container
   - devops
 ---
+
+# Cloud-Native Fundamentals
+
 ## Cloud Model
 
 <img width="1679" height="498" alt="Pasted image 20260104170558" src="https://github.com/user-attachments/assets/7009e2c7-728d-47ec-821f-9234fe8bb4b6" />
@@ -32,7 +35,7 @@ aliases:
 | 접근성 | 인터넷 기반       | 내부 전용         | 혼합           |
 | 보안  | 상대적으로 낮음     | 높음            | 조절 가능        |
 
-## Cloud Native
+## Containers and Kubernetes
 
 <img width="813" height="436" alt="Pasted image 20260104170705" src="https://github.com/user-attachments/assets/ced35f4f-f365-41ed-a79e-03b95f29c31b" />
 

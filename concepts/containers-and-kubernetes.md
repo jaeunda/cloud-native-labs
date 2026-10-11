@@ -9,7 +9,7 @@ aliases:
   - kubernetes
   - cloud-native
 ---
-# Cloud Native
+# Containers and Kubernetes
 ## 01. Container
 - Technology for packaging an application along with its runtime dependencies.
 	- the standardization from having dependencies included
@@ -74,7 +74,7 @@ EXPOSE 28082
 [Kubernetes - Cluster Architecture](https://kubernetes.io/docs/concepts/architecture/)
 #### Control Plane Components
 - make global decisions about the cluster, as well as detecting and responding to cluster events.
-- 참고: [Kubernetes - Creating Highly Available clusters with kubeadm](Creating-Highly-Available-Clusters-with-kubeadm)
+- 참고: [Kubernetes - Creating Highly Available clusters with kubeadm](../notes/Creating-Highly-Available-Clusters-with-kubeadm)
 ##### kube-apiserver
 - exposes the kubernetes API.
 - kube-apiserver is designed to scale horizontally

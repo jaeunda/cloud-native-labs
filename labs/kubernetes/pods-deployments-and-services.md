@@ -8,11 +8,14 @@ aliases:
   - deployment
   - service
 ---
-###### 실습 내용
+
+# Pods, Deployments, and Services
+
+###### Lab Overview
 1. Pod 배포
 2. Deployment를 통한 Pod의 개수 유지와 자동 복구 확인
 3. Service를 이용한 외부 트래픽 전달
-### Pod: 단일 컨테이너
+### Single-Container Pod
 ```sh
 #Pod
 apiVersion: v1
@@ -80,7 +83,7 @@ spec:
 - Service
 	- Pod는 외부에서 직접 접근 불가하므로
 	- Service가 네트워크 접근 지점 역할
-### 로그 출력용 Pod
+### Logging Pod
 - 컨테이너 실행 시 command override 가능
 ```sh
 #Pod

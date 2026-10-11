@@ -9,6 +9,9 @@ aliases:
   - secret
   - daemonset
 ---
+
+# ConfigMaps, Secrets, and DaemonSets
+
 ## ConfigMap
 [Kubernetes Documentation - ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
 <img width="982" height="417" alt="Pasted image 20260113161604" src="https://github.com/user-attachments/assets/c501ac18-6398-4c17-8753-f859ad5d43cc" />
@@ -20,7 +23,7 @@ aliases:
 - 데이터베이스 주소, 포트 번호, 환경 변수 값 등과 같은 설정 정보를 저장
 	- Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
 ### 1. ConfigMaps and Pods
-#### 1-1. Kubernetes CLI: ConfigMap 생성
+#### 1-1. Kubernetes CLI: ConfigMap Creation
 ```sh
 # ConfigMap 생성 (환경 변수 설정)
 $ kubectl create cm jde-cm --from-literal=SECLOUDIT="Platform as a service!"
@@ -34,7 +37,7 @@ $ kubectl describe cm jde-cm
 <img width="1674" height="257" alt="Pasted image 20260106104334" src="https://github.com/user-attachments/assets/268a4878-cf71-4c63-beaf-02bb37327a06" />
 <img width="1323" height="541" alt="Pasted image 20260106104601" src="https://github.com/user-attachments/assets/34b4b49a-542e-4622-a678-dfe957da8709" />
 
-###### Yaml: ConfigMap 생성
+###### YAML: ConfigMap Creation
 ```yaml
 # configmap.yaml
 apiVersion: v1
@@ -45,7 +48,7 @@ metadata:
 data:  
   SECLOUDIT: "Platform as a service!" 
 ```
-#### 1-2. Pod 생성
+#### 1-2. Pod Creation
 ```yaml
 # cm-pod.yaml
 apiVersion: v1
@@ -81,7 +84,7 @@ $ kubectl describe pod jde-pod -n jde-ns
 ```
 - `configMapKeyRef`를 수정하지 않아서 에러남
 	- `secloudit-configmap`을 앞서 생성한 `jde-cm`으로 수정
-#### 1-3. Pod 로그 조회
+#### 1-3. Inspecting Pod Logs
 ```sh
 # Log 조회
 $ kubectl logs -f jde-pod
@@ -90,7 +93,7 @@ $ kubectl logs -f jde-pod
 
 - `SECLOUDIT`의 value를 출력
 ### 2. ConfigMaps and Pods (2)
-#### 2-1. Yaml: ConfigMap 생성
+#### 2-1. YAML: ConfigMap Creation
 ```yaml
 # configmap2.yaml
 
@@ -115,11 +118,11 @@ $ kubectl describe cm jde-cm2 -n jde-ns
 ```
 <img width="1526" height="911" alt="Pasted image 20260106111120" src="https://github.com/user-attachments/assets/c0a8d59d-7b54-415f-8931-700d4c8038cd" />
 
-###### Kubernetes CLI: ConfigMap 생성
+###### Kubernetes CLI: ConfigMap Creation
 ```sh
 $ kubectl create configmap jde-cm2 --from-literal=SECLOUDIT="Platform as a service!" --from-literal=PaaS="Secloudit" -n jde-ns
 ```
-#### 2-2. Pod 생성
+#### 2-2. Pod Creation
 ```sh
 # cm-pod2.yaml
 apiVersion: v1
@@ -152,7 +155,7 @@ $ kubectl logs jde-pod2 -n jde-ns
 ```
 <img width="2433" height="1047" alt="Pasted image 20260106111518" src="https://github.com/user-attachments/assets/d7b4d33d-1ea9-4863-b843-79df8061b337" />
 
-#### 2-3. Pod 접속
+#### 2-3. Accessing the Pod
 ```sh
 $ kubectl exec -it jde-pod -- sh
 $ kubectl exec -it jde-pod2 -n jde-ns -- sh
@@ -166,7 +169,7 @@ $ kubectl exec -it jde-pod2 -n jde-ns -- sh
 > [Blog - How does 'kubectl exec' work?](https://erkanerol.github.io/post/how-kubectl-exec-works/)
 
 - 그냥 궁금했어요!
-- [../notes/how-does-kubectl-exec-work](../notes/how-does-kubectl-exec-work)
+- [../notes/how-does-kubectl-exec-work](../../notes/how-does-kubectl-exec-work)
 ![Components](https://erkanerol.github.io/img/kubectl-exec/components.png)
 1. `kubectl exec process` $\rightarrow$ `master node's api-server`
 	- `kubectl` creates a `POST` request with subresource `exec` and sends a rest request
@@ -213,7 +216,7 @@ $ kubectl exec -it jde-pod2 -n jde-ns -- sh
 - [Kubernetes - Using a Secret](https://kubernetes.io/docs/concepts/configuration/secret/#using-a-secret)
 	- Secrets can be mounted as data volumes or exposed as environment variables to be used by a container in a Pod.
 ### 1. Secrets and Pods
-#### 1-1. Kubernetes CLI: Secret 생성
+#### 1-1. Kubernetes CLI: Secret Creation
 ```sh
 # Secret 생성
 $ kubectl create secret generic jde-secret --from-literal=SECLOUDIT="Platform as a service!" -n jde-ns
@@ -228,7 +231,7 @@ $ kubectl describe secret jde-secret -n jde-ns
 <img width="2103" height="522" alt="Pasted image 20260106114241" src="https://github.com/user-attachments/assets/6be9e3f5-0d02-4fe7-9752-32a3b2eb7126" />
 
 - `Opaque`: the default secret type
-#### 1-2. Pod 생성
+#### 1-2. Pod Creation
 ```yaml
 # secret-pod.yaml
 
@@ -264,7 +267,7 @@ $ kubectl logs jde-secret-pod -n jde-ns
 
 - Secret에 설정된 `SECLOUDIT`의 value 출력
 ### 2. Secrets and Pods (2)
-#### 2-1. Yaml: Secret 생성
+#### 2-1. YAML: Secret Creation
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -286,7 +289,7 @@ kubectl create -f secret2.yaml
 ```
 <img width="2413" height="211" alt="Pasted image 20260106120617" src="https://github.com/user-attachments/assets/9e5084ca-e6e7-44d5-9a3a-08bc66009580" />
 
-#### 2-2. Pod 생성
+#### 2-2. Pod Creation
 ```yaml
 # secret-pod2.yaml
 
@@ -336,7 +339,7 @@ $ kubectl logs jde-secret-pod2 -n jde-ns
 <img width="2041" height="549" alt="Pasted image 20260106120855" src="https://github.com/user-attachments/assets/fe984562-6c06-413a-9e6e-b980eeaf7949" />
 
 - Secret에서 설정한 `value` 출력
-#### 2-3. Pod 접속
+#### 2-3. Accessing the Pod
 - Pod 접속하여 환경변수 설정 확인
 ```sh
 $ kubectl exec -it jde-secret-pod2 -n jde-ns -- sh
@@ -353,7 +356,7 @@ $ kubectl exec -it jde-secret-pod2 -n jde-ns -- sh
 ### 3. Secret Volume
 - Pod 내에서 환경변수가 아니라 파일을 mount해서 사용함.
 - 환경변수보다 권한을 관리하기에 용이
-#### 3-1. Pod 생성
+#### 3-1. Pod Creation
 - 2-1에서 생성한 secret 재사용
 ```yaml
 # secret-pod3.yaml
@@ -394,7 +397,7 @@ $ kubectl exec -it jde-secret-pod3 -n jde-ns -- sh
 
 - Secret을 환경변수로 주입했을 때와 다르게 Volume으로 마운트하여 사용하면 
 - 로그(위)나 프로세스 환경변수 정보(아래)에 Plain Text로 노출되지 않음
-#### 3-2. Pod 접속
+#### 3-2. Accessing the Pod
 ```sh
 $ kubectl exec -it jde-secret-pod3 -n jde-ns -- sh
 ```
@@ -408,7 +411,7 @@ $ kubectl exec -it jde-secret-pod3 -n jde-ns -- sh
 	- running a cluster storage daemon on every node
 	- running a logs collection daemon on every node
 	- running a node monitoring daemon on every node
-### 1. DaemonSet 생성
+### 1. DaemonSet Creation
 #### 1-1. Yaml: Writing a DaemonSet Spec 
 ```sh
 # daemonset.yaml

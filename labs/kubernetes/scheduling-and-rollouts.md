@@ -13,9 +13,12 @@ aliases:
   - job
   - cronjob
 ---
-## 1. 노드 스케줄링 관리 (Cordon & Uncordon)
+
+# Kubernetes Scheduling and Rollouts
+
+## 1. Node Scheduling Management (Cordon & Uncordon)
 - `kubctl cordon` 특정 노드에 Pod가 할당되지 않도록 한다.
-### 1-1. Deployment 배포
+### 1-1. Deployment Creation
 ```sh
 $ kubectl cordon jde-cluster2
 
@@ -41,7 +44,7 @@ $ kubectl get nodes # jde-cluster2의 STATUS 확인
 - `jde-cluster2`에도 다시 Pod가 스케줄링됨을 확인할 수 있다.
 <img width="2429" height="416" alt="Pasted image 20260109104738" src="https://github.com/user-attachments/assets/d711ceb5-4684-4ff6-b189-e50d2f86bf43" />
 
-### 1-2. Deployment의 `replicas` 수정
+### 1-2. Updating Deployment `replicas`
 - `replicas`를 4로 설정하여 `jde-deployment-node`를 배포한다.
 - `kubectl cordon jde-cluster2`를 적용한 상태이므로 해당 노드에는 Pod가 스케줄링되지 않음.
 <img width="2467" height="278" alt="Pasted image 20260109105155" src="https://github.com/user-attachments/assets/9c922e69-42ff-4571-acf0-3485a26c0673" />
@@ -64,10 +67,10 @@ $ kubectl get pods -o wide
 - `jde-cluster2`에도 Pod가 스케줄링된다.
 <img width="2467" height="403" alt="Pasted image 20260109105305" src="https://github.com/user-attachments/assets/35366719-cf08-4c94-ba14-c15e2b80aeb9" />
 
-## 2. 스케줄링 제어 (Taints & Tolerations)
+## 2. Scheduling Control (Taints & Tolerations)
 - Taints: 특정 노드 (특히 Master Node)에 Pod가 배포되는 것을 제한
 - Toleration: Taints를 무시하고 배포
-### 2-1. Master Node의 Taints 조회
+### 2-1. Inspecting Control Plane Node Taints
 ```sh
 $ kubectl describe nodes jde-cluster1
 # Taints 필드 확인
@@ -76,7 +79,7 @@ $ kubectl describe nodes jde-cluster1
 
 - `Taints: node-role.kubernetes.io/control-plane: NoSchedule`
 	- 일반적으로 Control Plane에는 Pod가 배포되지 않는다.
-### 2-2. `tolerations` 설정으로 Control Plane에 Pod 배포포
+### 2-2. Deploying Pods on the Control Plane with `tolerations`
 ```sh
 # deployment-node2.yaml
 
@@ -119,7 +122,7 @@ spec:
 	- kubectl scale --replicas 옵션
 	- yaml 수정 후 apply
 	- kubectl edit
-## 3. 무중단 배포 및 롤백 (Rolling Update & Rollback)
+## 3. Zero-Downtime Deployment and Rollback (Rolling Update & Rollback)
 
 <img width="2464" height="248" alt="Pasted image 20260109113242" src="https://github.com/user-attachments/assets/541fa11a-540c-4482-b33f-64d4a19f57a8" />
 
@@ -139,7 +142,7 @@ spec:
 
 <img width="2475" height="475" alt="Pasted image 20260109114356" src="https://github.com/user-attachments/assets/733fc72d-e203-4df5-a222-c1f8f619acab" />
 
-## 4. 상태가 있는 애플리케이션 관리 (`StatefulSet`)
+## 4. Stateful Application Management (`StatefulSet`)
 ```sh
 apiVersion: apps/v1
 kind: StatefulSet
@@ -172,7 +175,7 @@ spec:
 0 1 2 배포
 
 
-## 5. 일회성 작업 관리 (`Job`)
+## 5. One-Off Task Management (`Job`)
 CLI로 Job
 <img width="2480" height="211" alt="Pasted image 20260109115654" src="https://github.com/user-attachments/assets/41fe2584-02a6-4223-9bed-b707cb8cf0f4" />
 
@@ -188,7 +191,7 @@ CLI로 Job
 <img width="1957" height="936" alt="Pasted image 20260109120248" src="https://github.com/user-attachments/assets/3ddac69c-ae06-4a02-9422-246ddb4c6a2f" />
 
 
-## 6. 주기적 작업 관리 (`CronJob`)
+## 6. Scheduled Task Management (`CronJob`)
 - cronjob CLI로 생성
 <img width="2496" height="200" alt="Pasted image 20260109120947" src="https://github.com/user-attachments/assets/f463ad54-64cf-4589-b768-e18cdcea67cc" />
 <img width="1631" height="93" alt="Pasted image 20260109121020" src="https://github.com/user-attachments/assets/8c30f161-a2bb-4d37-8fae-53b9eda4a4b9" />

@@ -11,16 +11,19 @@ aliases:
   - replicaset
   - parallelism
 ---
-###### 이론
-- [cloud-251223](../notes/cloud-251223.md)
-###### 실습
+
+# ReplicaSets, Jobs, and CronJobs
+
+###### Concepts
+- [cloud-251223](../../concepts/containers-and-kubernetes.md)
+###### Lab Overview
 - Pod 배포
 	- 단일 Pod
 	- 다중 Pod - 순차 실행
 	- 다중 Pod - 병렬 실행
 - Job
 - CronJob
-### 로그 출력용 단일 Pod
+### Single Logging Pod
 ```sh
 apiVersion: v1
 kind: Pod
@@ -66,7 +69,7 @@ spec:
       - name: nginx
         image: nginx:1.14.2
 ```
-### 단일 Job
+### Single Job
 - Job: 일회성 작업 실행용 리소스
 	- 작업 완료 후 즉시 종료(`Completed`)
 ```sh
@@ -88,7 +91,7 @@ spec:
 <img width="2201" height="908" alt="Pasted image 20251226113656" src="https://github.com/user-attachments/assets/5850f733-2e67-45cd-ab59-7ce289384ce5" />
 
 - `Completed`: Job 정상 수행
-### 다중 Job - 순차 실행
+### Multiple Jobs: Sequential Execution
 - `completions: 3`
 	- 총 3개의 Pod가 성공으로 완료되어야 Job 종료
 	- 기본적으로 순차 실행
@@ -137,7 +140,7 @@ spec:
 <img width="2614" height="523" alt="Pasted image 20251226114920" src="https://github.com/user-attachments/assets/24fc257d-fc31-4d00-9eb0-40e23e5c4253" />
 
 - Pod 3개가 30초 간격으로 생성
-### 다중 Job - Parallelism
+### Multiple Jobs: Parallelism
 ```sh
 apiVersion: batch/v1
 kind: Job

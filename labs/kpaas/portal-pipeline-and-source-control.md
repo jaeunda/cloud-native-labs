@@ -6,33 +6,36 @@ tags:
 aliases:
   - install-kpaas
 ---
+
+# K-PaaS Portal, Pipeline, and Source Control
+
 ### Ingress-NGINX Controller
 <img width="2330" height="254" alt="Pasted image 20251231103930" src="https://github.com/user-attachments/assets/dd6cbdd5-ee44-4c62-aa38-d119e60b20f7" />
 <img width="1924" height="170" alt="Pasted image 20251231104007" src="https://github.com/user-attachments/assets/a8b8be87-7bd2-4935-b8c0-0efaf1963a35" />
 
 - `cluster1`-`cluster4`(Control Plane, Worker Node) `Ready` 상태
 - `ingeress-nginx-controller` (`LoadBalancer`) Floating IP 할당 상태
-### 컨테이너 플랫폼 포털 구축
+### Container Platform Portal Setup
 [Github - 컨테이너 플랫폼 포털 배포](https://github.com/K-PaaS/container-platform/blob/master/install-guide/portal/cp-portal-standalone-guide.md#3-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%ED%94%8C%EB%9E%AB%ED%8F%BC-%ED%8F%AC%ED%84%B8-%EB%B0%B0%ED%8F%AC)
-#### 컨테이너 플랫폼 포털 변수 정의
+#### Container Platform Portal Variables
 <img width="2236" height="281" alt="Pasted image 20251231105456" src="https://github.com/user-attachments/assets/ef8c9bff-9529-44b5-bc53-52abcb953642" />
 
 - Master Node: `cluster1`
-##### 컨테이너 플랫폼 포털 Pod 조회
+##### Inspecting Container Platform Portal Pods
 <img width="1839" height="1062" alt="Pasted image 20251231110610" src="https://github.com/user-attachments/assets/d3bb8322-12f1-44fd-9a0c-e59f8b69d8bc" />
 <img width="1957" height="600" alt="Pasted image 20251231110626" src="https://github.com/user-attachments/assets/b20e20d2-6f2c-4eee-a4c9-a9a546e84b94" />
 <img width="1818" height="165" alt="Pasted image 20251231113353" src="https://github.com/user-attachments/assets/aa607995-d122-4d92-b1b1-33019e6b6e58" />
 <img width="1869" height="920" alt="Pasted image 20260102104930" src="https://github.com/user-attachments/assets/425e6725-f506-4157-87cd-f10616943673" />
 
 - portal 접속 확인
-### 컨테이너 플랫폼 파이프라인 설치
+### Container Platform Pipeline Installation
 - [Github - 컨테이너 플랫폼 파이프라인 배포](https://github.com/K-PaaS/container-platform/blob/master/install-guide/pipeline/cp-pipeline-standalone-guide.md)
 <img width="1975" height="283" alt="Pasted image 20251231115608" src="https://github.com/user-attachments/assets/04c564b8-08af-4cee-87ee-a4fc85a4d753" />
 <img width="2034" height="1323" alt="Pasted image 20251231115721" src="https://github.com/user-attachments/assets/6dd730a0-32c5-4a65-a28f-8125e9833a98" />
 <img width="1834" height="1342" alt="Pasted image 20251231115826" src="https://github.com/user-attachments/assets/4a863446-7013-4f4f-a694-1f38c5fc6d5f" />
 <img width="1884" height="667" alt="Pasted image 20260102104946" src="https://github.com/user-attachments/assets/b972a108-5ada-4fbf-b271-48c7261218e3" />
 
-### 컨테이너 플랫폼 소스 컨트롤 구축
+### Container Platform Source Control Setup
 [Github - 컨테이너 플랫폼 소스 컨트롤 배포](https://github.com/K-PaaS/container-platform/blob/master/install-guide/source-control/cp-source-control-standalone-guide.md)
 <img width="2055" height="298" alt="Pasted image 20251231120542" src="https://github.com/user-attachments/assets/521afa4d-a80d-4b84-8e42-4e79e9919a79" />
 <img width="2311" height="814" alt="Pasted image 20251231120630" src="https://github.com/user-attachments/assets/1016d35d-c2c5-4f2d-a5c8-84ab43c11860" />

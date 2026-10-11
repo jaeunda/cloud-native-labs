@@ -10,21 +10,24 @@ aliases:
   - devops
   - gitlab
 ---
-## GitLab CI/CD를 활용한 DevOps 실습
+
+# GitLab CI/CD
+
+## DevOps with GitLab CI/CD
 <img width="713" height="330" alt="Pasted image 20260104190128" src="https://github.com/user-attachments/assets/e46c3acb-fddc-42cf-8b1e-e718df68ce96" />
 
 - VPC 를 생성하고 Public Subnet 에서 GitLab 용 EC2 Instance를 생성하여 사용
 - GitLab 서버와 Runner를 동일한 머신에 설치
-#### GitLab 설치 && 환경 구성
+#### GitLab Installation and Environment Setup
 - CI/CD 작업을 실행하는 GitLab Runner를 설치하고 등록
 <img width="1184" height="623" alt="Pasted image 20260104190338" src="https://github.com/user-attachments/assets/e2f5071d-8a8f-4a91-a3d1-0f7fe025cd6a" />
 
-#### Application 준비
+#### Application Preparation
 1. S3 버킷 생성
 2. 정적 웹사이트 호스팅 활성화
 3. 버킷 정책 설정
 4. EC2 인스턴스에서 S3 배포/접근 권한 설정
-#### CI/CD 파이프라인 구성
+#### CI/CD Pipeline Configuration
 1. GItLab 프로젝트 > Configure pipeline
 2. Commit changes > Self Managed Gitlab runner 동작 확인
 <img width="1153" height="359" alt="Pasted image 20260104190911" src="https://github.com/user-attachments/assets/21c9686e-817e-43bf-84f5-af57d7b36f84" />

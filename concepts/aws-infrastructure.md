@@ -12,6 +12,9 @@ aliases:
   - amazon-ec2
   - auto-scaling
 ---
+
+# AWS Infrastructure
+
 ## AWS Global Infrastructure
 ###### AWS Responsibility - Resiliency of the cloud
 - AWS is responsible for resiliency of the Infrastructure that runs all of the services offered in the AWS Cloud.
@@ -88,7 +91,7 @@ aliases:
 - Spot Instances
 ### AMAZON ECS, EKS and FARGATE
 - Docker 컨테이너를 대규모로 실행하고 관리할 수 있는 서비스
-- [Amazon EKS](../prac/aws-251223.md)
+- [Amazon EKS](../labs/aws/eks-web-application.md)
 ### AWS LAMBDA
 - 이벤트에 대한 응답으로 코드를 실행하는 서버리스 컴퓨팅 
 ## Related Services

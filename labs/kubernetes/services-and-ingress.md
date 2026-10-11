@@ -8,6 +8,9 @@ aliases:
   - service
   - deployment
 ---
+
+# Kubernetes Services and Ingress
+
 ## 03. Network
 ```
 Deployment  → Pod 생성/확장
@@ -100,9 +103,9 @@ Client → Service(IP/DNS) → Pod A / Pod B / Pod C
 [외부 사용자]  →  Ingress  →  Service  →  Pods들
 ```
 ---
-### Service - 실습
+### Service Lab
 #### 1. L7 Load Balancing: Ingress - Service(`ClusterIP`) - Deployment
-##### 1-1. Deployment 생성 (p.206)
+##### 1-1. Deployment Creation (p.206)
 - Kubernetes Deployment 리소스 정의 및 생성
 - Service와 연결하기 위해 Backend 역할을 할 Pod를 띄움
 ```sh
@@ -156,7 +159,7 @@ $ kubectl describe deploy jde-deploy-svc
 - 해당 Pod로 트래픽을 분산시키기 위해
 	- Service 생성 $\rightarrow$ Label Selector로 `app: hello` 지정 (해당 Pod와 동일하게)
 	- $\therefore$ Service로 들어오는 트래픽이 3개의 Pod로 로드밸런싱
-##### 1-2. Service 생성 (p. 211)
+##### 1-2. Service Creation (p. 211)
 - Service 리소스 정의 및 생성
 - 앞서 생성한 Deployment의 Pod와 Service 연결 (`spec: selector:`)
 ```sh
@@ -205,7 +208,7 @@ $ kubectl get service -n jde-ns
 	- 두 번째 Res: `10.233.127.115:80`(`jde-deploy-svc-*`)
 - Service가 Pod 3개 중 서로 다른 Pod로 트래픽 분산
 	- 세 개의 Pod를 번갈아 가면서 접근한다. (Round Robin)
-	- 참고: [kube-proxy](../notes/service-kube-proxy)
+	- 참고: [kube-proxy](../../notes/service-kube-proxy)
 <img width="1933" height="426" alt="Pasted image 20260107104643" src="https://github.com/user-attachments/assets/60073b52-602f-41c2-8106-ea70c69eeef0" />
 
 ```sh
@@ -216,7 +219,7 @@ $ kubectl get service -n jde-ns
 # Pod의 IP 확인
 $ kubectl get pods -n jde-ns -o wide
 ```
-##### 1-3. 내부 통신 테스트
+##### 1-3. Internal Connectivity Testing
 - `Cluster IP`는 클러스터 내부에서만 접근 가능하므로 클러스터 내부의 다른 Pod에서 접근 테스트
 - `kubectl run` 명령을 통해 임시로 Pod 생성(Client)
 	- 임시 Pod 내에서 `jde-svc`로 `curl` 요청
@@ -274,7 +277,7 @@ $ curl jde-svc:8080
 | ------ | ---------------------------------------------- | -------------------------------------------------------------- |
 | IP     | Ingress의 Public IP 하나로 여러 Service 처리           | Service마다 Public IP 하나씩                                        |
 | 트래픽 흐름 | `Floating IP` <br>→ `Ingress`<br>→ `ClusterIP` | `Floating IP` <br>→ `LoadBalancer` <br>→ `Service` <br>→ `Pod` |
-##### 2-1. Deployment 정의 및 생성 (p.220)
+##### 2-1. Defining and Creating a Deployment (p.220)
 - 실제 작업을 처리할 Nginx Pod 생성
 ```sh
 apiVersion: apps/v1
@@ -310,7 +313,7 @@ $ kubectl create -f deploy-svc2.yaml
 # Pod 생성 확인
 $ kubectl get pod -n jde-ns
 ```
-##### 2-2. `LoadBalancer` Service 생성 (p.225)
+##### 2-2. Creating a `LoadBalancer` Service (p.225)
 ```sh
 apiVersion: v1
 kind: Service
@@ -337,7 +340,7 @@ $ kubectl apply -f svc2.yaml
 
 - `jde-svc2`가 `LoadBalancer` 타입으로 생성
 - `EXTERNAL-IP`가 존재하나 물리적으로 연결되지 않은 상태
-##### 2-3. 네트워크 인터페이스 생성 및 물리적 연결
+##### 2-3. Network Interface Creation and Physical Connection
 - NHN 콘솔에서 `cluster1` 중지
 - 네트워크 인터페이스 생성하고 다시 시작
 <img width="1064" height="324" alt="Pasted image 20260107110812" src="https://github.com/user-attachments/assets/d3783a91-c540-4955-85e2-e4122fab5db4" />
@@ -347,7 +350,7 @@ $ kubectl apply -f svc2.yaml
 	- 지정 IP는 1씩 incr
 	- <img width="1753" height="1112" alt="Pasted image 20260107114730" src="https://github.com/user-attachments/assets/13bb08fa-7ad7-4e15-9410-9fea93948eca" />
 
-###### `LoadBalancer` IP 고정하기  (Static IP Allocation)
+###### Assigning a Static `LoadBalancer` IP (Static IP Allocation)
 - `EXTERNAL-IP`를 임의로 할당하기 위해서는 `svc2.yaml`에 `loadBalancerIP:` 필드 추가
 	- <img width="1490" height="635" alt="Pasted image 20260107115409" src="https://github.com/user-attachments/assets/79077cba-1b39-48fd-9496-c12a07db09e8" />
 
@@ -383,7 +386,7 @@ spec:
 	- 클라이언트와의 TCP 연결을 수립한 후,
 	- HTTP 패킷을 복호화 및 분석하여 
 	- Ingress Rule(라우팅 규칙)에 따라 적절한 백엔드 서비스로 요청 생성 및 전달
-##### 3-1. Deployment Controller 리소스 생성
+##### 3-1. Creating Deployment Controller Resources
 ```
 $ kubectl create deploy ing-deploy --image nginx --port 80 --replicas 3 -n jde-ns
 ```
@@ -391,14 +394,14 @@ $ kubectl create deploy ing-deploy --image nginx --port 80 --replicas 3 -n jde-n
 - 트래픽을 처리할 실제 애플케이션 Instance (Workload) 확보
 <img width="2441" height="193" alt="Pasted image 20260107120613" src="https://github.com/user-attachments/assets/9ed77786-7a81-421c-978f-38eb065a7076" />
 
-##### 3-2. `ClusterIP` 타입 Service 생성
+##### 3-2. Creating a `ClusterIP` Service
 - 앞서 만든 Deployment Pod들을 논리적 그룹으로 묶고,
 - `ClusterIP`를 할당받아 `ing-svc`를 생성한다.
 	- 클러스터 내부 Overlay Network에서만 접근 가능한 고정 IP
 	- `--type=ClusterIP`: Cluster 내부의 Ingress Controller만이 서비스에 접근하여 트래픽을 전달하도록 제한
 <img width="2387" height="375" alt="Pasted image 20260107120636" src="https://github.com/user-attachments/assets/d520b7cb-a080-491c-944a-03d4862a5926" />
 
-##### 3-3. Ingress 리소스 생성 (Routing Configuration)
+##### 3-3. Creating an Ingress Resource (Routing Configuration)
 ```sh
 $ kubectl create ing ingress --class=nginx \
  --rule=ing.133.186.xxx.xxx.nip.io/=ing-svc:80 -n jde-ns
@@ -425,7 +428,7 @@ $ kubectl describe ing ingress -n jde-ns
 	- Nginx Ingress Controller가 API Server로부터
 	- 새로운 Ingress 리소스 생성을 감지하고
 	- `nginx.conf` 설정을 Reload하여 라우팅 규칙을 적용했음을 의미
-##### 3-4. 브라우저 접속
+##### 3-4. Browser Access
 1. DNS Resolution
 	- 클라이언트가 `nip.io` DNS 서버를 통해 도메인을 Floating IP로 해석
 2. External Access
@@ -445,7 +448,7 @@ $ kubectl describe ing ingress -n jde-ns
 | 식별 데이터 | `GET /hello HTTP/1.1`  | `Host: hello.nip.io` |
 | URL 구조 | `...nip.io/hello`      | `hello. .nip.io`     |
 | DNS 설정 | 단일 레코드                 | 와일드카드 또는 다중 레코드      |
-##### 4-1. Backend Workload 배포: Deployment
+##### 4-1. Backend Workload Deployment: Deployment
 ```sh
 # 실습2,3,4) Ingress - 240, 263, 286p
 apiVersion: apps/v1
@@ -520,7 +523,7 @@ spec:
           containerPort: 80
 
 ```
-##### 4-2. Backend Workload 배포: Service(`ClusterIP`) 
+##### 4-2. Backend Workload Deployment: Service(`ClusterIP`)
 ```sh
 # 실습2,3,4) Ingress - 249, 272, 295p
 apiVersion: v1
@@ -602,7 +605,7 @@ service/httpd created
 	- 단일 도메인으로 들어온 트래픽을 
 	- URI Prefix에 따라 
 	- 서로 다른 Upstream Service로 Multiplexing
-###### 브라우저 접속
+###### Browser Access
 - `jde.133.186.xxx.xxx.nip.io/grafana`
 <img width="1863" height="837" alt="image" src="https://github.com/user-attachments/assets/6c5eb3c2-1f90-448b-b368-db7ecbe2419d" />
 <img width="1168" height="222" alt="image" src="https://github.com/user-attachments/assets/e304d04a-04a4-4a1e-8464-9e0d269d9f2e" />
@@ -652,7 +655,7 @@ spec:
 <img width="2337" height="989" alt="image" src="https://github.com/user-attachments/assets/427e18e0-e7d7-4126-9e2a-fc85e4c80439" />
 <img width="1992" height="694" alt="image" src="https://github.com/user-attachments/assets/6d2f717b-0583-4e3d-9471-272356f7a84c" />
 
-###### 브라우저 접속
+###### Browser Access
 - `grafana.133.186.xxx.xxx.nip.io`
 - `hello.133.186.xxx.xxx.nip.io`
 - `httpd.133.186.xxx.xxx.nip.io`

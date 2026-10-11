@@ -11,11 +11,11 @@ aliases:
 
 <img width="778" height="269" alt="Pasted image 20251229142851" src="https://github.com/user-attachments/assets/02ea0586-4813-426f-b5bb-8fe584b04886" />
 
-# AWS Bedrock 기반 LLM에서 AI Agent까지
+# Amazon Bedrock: From LLMs to AI Agents
 ## Amazon Bedrock Knowledge Bases
 - RAG(Retrieval Augmented Generation) 기술을 활용하여 사용자의 개인 데이터를 GenAI 애플리케이션에 통합할 수 있는 서비스
 - 데이터 소스에서 관련 정보를 검색하여 생성된 응답의 관련성과 정확성 향상
-### S3 설정 및 파일 업로드
+### S3 Setup and File Upload
 <img width="2749" height="1286" alt="Screenshot 2025-12-29 151620" src="https://github.com/user-attachments/assets/82c8dd01-712a-429b-8704-f6b1d42e090d" />
 
 1. S3 버킷 버킷을 생성하여(`agent-workshop-2578`)
@@ -24,7 +24,7 @@ aliases:
 
 - Knowledge Base는 문서를 임베딩 벡터로 변환하여 저장하고
 - 사용자 질의 와 유사한 내용을 빠르게 검색할 수 있게 해주는 시스템이다.
-### Knowledge Base 생성 및 구성
+### Knowledge Base Creation and Configuration
 <img width="2791" height="1477" alt="Screenshot 2025-12-29 151949" src="https://github.com/user-attachments/assets/9f03a339-4e7e-4d07-880c-566e2c8e693c" />
 
 - 앞서 생성한 S3 버킷을 데이터 소스로 선택하고
@@ -34,13 +34,13 @@ aliases:
 <img width="2758" height="1325" alt="Screenshot 2025-12-29 152738" src="https://github.com/user-attachments/assets/0aebf1d4-b3ad-4436-9a2e-9cf13ff4086c" />
 <img width="2758" height="1310" alt="Screenshot 2025-12-29 152755" src="https://github.com/user-attachments/assets/3c4ac7d2-1b04-4e3f-8320-5deab69a21bb" />
 
-### Knowledge Base 테스트 및 최적화
-#### 검색 테스트
+### Knowledge Base Testing and Optimization
+#### Retrieval Testing
 - 벡터 검색 기능을 직접 테스트한다.
 - 관련 문서가 올바르게 검색되는지 확인할 수 있다.
 <img width="2768" height="1417" alt="Screenshot 2025-12-29 153010" src="https://github.com/user-attachments/assets/b66fcdea-408e-45dd-ad8e-bf23e759a718" />
 
-#### RAG 테스트
+#### RAG Testing
 - 실제 생성형 AI와 연동
 <img width="2761" height="1313" alt="Screenshot 2025-12-29 153132" src="https://github.com/user-attachments/assets/9a24a666-8a13-44e7-8b56-1f0b396594fa" />
 
@@ -50,13 +50,13 @@ aliases:
 <img width="2735" height="1339" alt="Screenshot 2025-12-29 153707" src="https://github.com/user-attachments/assets/fcf29089-8066-4a08-85ce-e3a1537b5cbc" />
 
 ## Amazon Bedrock Agent
-### 테스트 및 추론 과정 분석
+### Testing and Analysis of the Reasoning Process
 <img width="2755" height="942" alt="Screenshot 2025-12-29 153854" src="https://github.com/user-attachments/assets/92ad3b99-d0bd-4994-85af-f820b4f81045" />
 <img width="2757" height="1470" alt="Screenshot 2025-12-29 161633" src="https://github.com/user-attachments/assets/ea10bd0f-d178-4d10-8bdf-0cccfd3b964f" />
 
 - 추론 과정의 상세 정보
 <img width="2754" height="1468" alt="Screenshot 2025-12-29 161706" src="https://github.com/user-attachments/assets/32bd020b-43a8-4684-9c05-8cb26124018d" />
 
-## Strands-Agents SDK 기반 Agentic AI
+## Agentic AI with the Strands Agents SDK
 <img width="2209" height="1381" alt="Screenshot 2025-12-29 162722" src="https://github.com/user-attachments/assets/b6f0fdda-fe44-4741-acbd-c2cf19355e6b" />
 <img width="2188" height="1423" alt="Screenshot 2025-12-29 162917" src="https://github.com/user-attachments/assets/17c8b6a7-d075-4ae3-866a-97e8ee0d5cde" />

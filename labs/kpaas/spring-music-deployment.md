@@ -10,8 +10,8 @@ aliases:
   - job
   - pipeline
 ---
-# Spring Music 배포 실습
-### Openbao 구성 및 동작 확인
+# Spring Music Deployment
+### OpenBao Configuration and Verification
 <img width="1347" height="161" alt="Pasted image 20260102104121" src="https://github.com/user-attachments/assets/5cf98fc3-dabe-4d62-835d-5945c752c559" />
 
 - openbao `Running`
@@ -26,8 +26,8 @@ aliases:
 - `Error`상태인 openbao Pod는 삭제함.
 <img width="1827" height="654" alt="Pasted image 20260102111912" src="https://github.com/user-attachments/assets/c795a06e-980e-4917-8544-673f0b04c68d" />
 
-### spring music 애플리케이션 배포
-#### `kubeconfig` 생성
+### Spring Music Application Deployment
+#### Creating `kubeconfig`
 <img width="2361" height="453" alt="Pasted image 20260102112406" src="https://github.com/user-attachments/assets/5d8ba0b5-e969-4137-88e6-dfa42412a555" />
 
 - Control Plane 노드에서 생성된 `kubeconfig` 파일 사용
@@ -38,12 +38,12 @@ aliases:
 - 지정된 Kubernetes 클러스터를 대상으로 명령을 실행하게 됨
 <img width="1391" height="477" alt="Pasted image 20260102112349" src="https://github.com/user-attachments/assets/ce2ce981-1c79-40d2-99e5-d1b718041d94" />
 
-#### 새로운 Pipeline 생성
+#### Creating a New Pipeline
 <img width="1830" height="725" alt="Pasted image 20260102112659" src="https://github.com/user-attachments/assets/6e3c4d70-cf89-4056-a0b0-68ae21fb1207" />
 <img width="1326" height="419" alt="Pasted image 20260102112726" src="https://github.com/user-attachments/assets/36f8b9db-9526-4f79-91c8-32a55d359aea" />
 <img width="1634" height="491" alt="Pasted image 20260102112733" src="https://github.com/user-attachments/assets/49d51f84-75e2-455b-8c0b-5621ff5ffb5a" />
 
-#### Job 생성
+#### Job Creation
 ##### Job Type 1: Build Job
 <img width="1315" height="609" alt="Pasted image 20260102112855" src="https://github.com/user-attachments/assets/1cc2b4d1-0fde-4f16-ac4e-bc65eba14315" />
 
@@ -71,7 +71,7 @@ aliases:
 <img width="1278" height="838" alt="Pasted image 20260102113700" src="https://github.com/user-attachments/assets/d72f3023-84e1-423a-bc4b-86b3e78df63a" />
 <img width="1425" height="465" alt="Pasted image 20260102113706" src="https://github.com/user-attachments/assets/747ab155-504e-4acc-a318-532f636e8ab2" />
 
-#### Deployment 배포 확인
+#### Verifying the Deployment
 ###### Error: manifest for openjdk:8-jdk-alpine not found
 
 <img width="1664" height="470" alt="Pasted image 20260102113719" src="https://github.com/user-attachments/assets/c00e479a-54e4-420c-96b7-40001f505cd5" />
@@ -79,7 +79,7 @@ aliases:
 <img width="1268" height="276" alt="Pasted image 20260102114119" src="https://github.com/user-attachments/assets/44fd31f0-bcb5-40e2-b4ca-80834d16af78" />
 
 - openjdk -> amazon 이미지 교체
-###### 배포 성공
+###### Successful Deployment
 <img width="1620" height="463" alt="Pasted image 20260102115007" src="https://github.com/user-attachments/assets/1c013a45-4691-4de4-b8dc-64f4aad5cde6" />
 <img width="1222" height="824" alt="Pasted image 20260102115046" src="https://github.com/user-attachments/assets/88398b37-ed71-4eee-b428-3a544d017c30" />
 <img width="1226" height="830" alt="Pasted image 20260102115101" src="https://github.com/user-attachments/assets/d72f5aaf-cc87-46dc-bfd0-84ba59adcdcd" />
@@ -90,7 +90,7 @@ aliases:
 <img width="1225" height="850" alt="Pasted image 20260102115350" src="https://github.com/user-attachments/assets/044914e1-0412-4a86-b21e-0fce923eebe3" />
 <img width="1758" height="632" alt="Pasted image 20260102115326" src="https://github.com/user-attachments/assets/19570713-3f3a-4924-af29-75afff3b3677" />
 
-###### 애플리케이션 접속
+###### Accessing the Application
 - 기존 interface floating IP + spring music port num
 - `http://133.186.xxx.xxx:31233/`
 <img width="1838" height="858" alt="Pasted image 20260102115639" src="https://github.com/user-attachments/assets/f447dedb-f16e-44c1-a121-7d9a15ce09f1" />

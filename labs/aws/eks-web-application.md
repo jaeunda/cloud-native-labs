@@ -10,7 +10,10 @@ aliases:
   - eks
   - eksctl
 ---
-## Amazon EKS Web Application IMD
+
+# Deploying a Web Application on Amazon EKS
+
+## Amazon EKS Web Application
 [Amazon  EKS web application workshop](https://catalog.workshops.aws/eks-web-application/en-US)
 1. Create container image using Docker
 2. Upload container images to Amazon ECR
@@ -22,7 +25,7 @@ aliases:
 - container orchestration tool that facilitates both declarative configuration and automation.
 <img width="1788" height="862" alt="Pasted image 20260104183938" src="https://github.com/user-attachments/assets/988d16bd-2c35-4cea-b667-f66243d00e6b" />
 
-[cloud-251223-kubernetes](../notes/cloud-251223.md)
+[cloud-251223-kubernetes](../../concepts/containers-and-kubernetes.md)
 ###### Amazon EKS
 <img width="447" height="353" alt="Pasted image 20260104184143" src="https://github.com/user-attachments/assets/5bd9f3ef-2f5e-43ac-b6d2-e8cd4a817499" />
 

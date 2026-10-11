@@ -8,28 +8,31 @@ aliases:
   - nginx
   - container
 ---
-## 1. 실습 환경 정리
+
+# K-PaaS Platform Teardown and Nginx
+
+## 1. Lab Environment Cleanup
 - 이전 실습에서 설치했던 컨테이너 플랫폼 관련 리소스 정리
-### 1-1. 소스컨트롤 삭제
+### 1-1. Removing Source Control
 
 ```sh
 $ cd ~/workspace/container-platform/cp-source-control-deployment/script
 $ chmod +x uninstall-cp-source-control.sh
 $ ./uninstall-cp-source-control.sh
 ```
-### 1-2. 파이프라인 삭제
+### 1-2. Removing the Pipeline
 ```sh
 $ cd ~/workspace/container-platform/cp-pipeline-deployment-script
 $ chmod +x uninstall-cp-pipeline.sh
 $ ./uninstall-cp-pipeline.sh
 ```
-### 1-3. 포털 삭제
+### 1-3. Removing the Portal
 ```sh
 $ cd ~/workspace/container-platform/cp-portal-deployment/script
 $ chmod +x uninstall-cp-portal.sh
 $ ./uninstall-cp-portal.sh
 ```
-### 1-4. 리소스 정리 상태 확인
+### 1-4. Verifying Resource Cleanup
 - k9s 설치 후 리소스 정리
 - helm list
 ```sh
@@ -39,8 +42,8 @@ $ kubectl get storageclass
 
 ---
 
-## 2. Nginx 실습
-### 2-1. Nginx Pod 생성
+## 2. Nginx Lab
+### 2-1. Nginx Pod Creation
 ```sh
 $ kubectl run jde-pods --port 80 --image nginx
 ```
@@ -52,7 +55,7 @@ $ kubectl expose pod jde-pods --name jde-svc --port 80 --target-port 80 --type=N
 ```
 <img width="1903" height="113" alt="Pasted image 20260112114126" src="https://github.com/user-attachments/assets/86ce448b-1e11-4ccc-b3e0-8cf78a608dd1" />
 
-### 2-3. 컨테이너 내부 접근 및 파일 수정
+### 2-3. Accessing the Container and Editing Files
 ```sh
 $ kubectl exec -it jde-pods -- /bin/sh
 ```
@@ -76,7 +79,7 @@ $ kubectl exec -it jde-pods -- /bin/sh
 <img width="1558" height="140" alt="Pasted image 20260112115139" src="https://github.com/user-attachments/assets/e9f758f2-01d9-41f3-8c58-740e9e459892" />
 <img width="1388" height="751" alt="Pasted image 20260112115331" src="https://github.com/user-attachments/assets/16ef39ac-01d2-496d-a39a-7f25712fc351" />
 
-### 2-4. 외부 접속 테스트
+### 2-4. External Connectivity Testing
 - 수정된 내용이 외부 접속 시 실제로 반영되는지 확인
 	- `http://<Node_IP>:<NodePort>`
 	- `133.186.xxx.xxx:31398`

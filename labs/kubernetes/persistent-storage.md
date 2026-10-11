@@ -9,6 +9,9 @@ aliases:
   - storageclass
   - volume
 ---
+
+# Kubernetes Persistent Storage
+
 ## Volume
 <img width="1179" height="325" alt="Pasted image 20260113215234" src="https://github.com/user-attachments/assets/3be5ae83-25e5-475b-8008-70e6463f4eaf" />
 
@@ -22,7 +25,7 @@ aliases:
 
 - 사용자가 필요한 스토리지의 크기와 접근 모드(ReadWriteOnce, ReadOnlyMany, ReadWriteMany)를 정의하고, 이를 기반으로 클러스터 내의 적절한 PV에 바인딩
 ### 1. Volume: `emptyDir`
-#### 1-1. Pod 생성
+#### 1-1. Pod Creation
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -64,7 +67,7 @@ $ kubectl get pods
 <img width="2013" height="842" alt="Pasted image 20260108104443" src="https://github.com/user-attachments/assets/2b47844e-3ab3-40ba-8186-4e202e0bcd33" />
 
 - 로그를 Pod 내의 컨테이너에 Volume을 mount하여 쌓음
-#### 1-2. Pod 접속하여 로그 조회
+#### 1-2. Accessing the Pod and Inspecting Logs
 ```sh
 # Pod 접속하여 shell 프로세스 실행
 $ kubectl exec -it jde-pod-volume -- /bin/sh
@@ -73,7 +76,7 @@ $ kubectl exec -it jde-pod-volume -- /bin/sh
 
 - 설정한 `mountPath: /var/log`에 로그가 쌓이는 것을 확인할 수 있다.
 ### 2. Volume: `hostPath`
-#### 2-1. Pod 생성
+#### 2-1. Pod Creation
 ```yaml
 # volume2.yaml
 apiVersion: v1
@@ -108,7 +111,7 @@ $ kubectl apply -f volume2.yaml
 # Pod 조회 (wide 옵션으로 조회하여 스케줄된 클러스터 확인)
 $ kubectl get pods -o wide 
 ```
-#### 2-2. 로그 조회: Worker Node 접속 or Pod 접속
+#### 2-2. Inspecting Logs from the Worker Node or Pod
 <img width="2433" height="264" alt="Pasted image 20260108105019" src="https://github.com/user-attachments/assets/a7c1d5a2-7957-48c4-8f9d-596f20b8d763" />
 
 - `jde-pod-volume2`는 `jde-cluster4`에 스케줄되었으므로 
@@ -123,7 +126,7 @@ $ kubectl get pods -o wide
 - `hostPath` 필드를 지정하여, 컨테이너 내부(`/var/log`)에 생성된 로그가 Worker Node의 `/var/log/secloudit-logs` 디렉토리에 동일하게 저장되었음을 확인할 수 있다.
 <img width="2378" height="1347" alt="Pasted image 20260108105428" src="https://github.com/user-attachments/assets/3157d70e-5ff6-4ca6-a0f6-faedeef4e6e5" />
 
-#### 2-3. Yaml: Pod가 스케줄링될 Worker Node(클러스터) 지정
+#### 2-3. YAML: Selecting the Worker Node (Cluster) for Pod Scheduling
 ```yaml
 # volume2.yaml
 apiVersion: v1
@@ -158,7 +161,7 @@ $ kubectl get pods -o wide
 ```
 <img width="2410" height="226" alt="Pasted image 20260108111001" src="https://github.com/user-attachments/assets/59153d9f-7405-41cc-b45c-910306630642" />
 
-#### 2-4. 지정한 클러스터에 접속하여 로그 조회
+#### 2-4. Accessing the Selected Cluster and Inspecting Logs
 ```sh
 # Pod가 스케줄된 Worker Node에 접속
 $ ssh ubuntu@jde-cluster2 -i ~/.ssh/id_rsa
@@ -223,7 +226,7 @@ $ kubectl get storageclass,pv,pvc
 ```
 <img width="2437" height="1206" alt="Pasted image 20260108112616" src="https://github.com/user-attachments/assets/42eed5bb-3024-4909-bf7c-035d234f3e3e" />
 
-#### 3-2. Pod 생성
+#### 3-2. Pod Creation
 ```sh
 apiVersion: v1
 kind: Pod
@@ -247,17 +250,17 @@ spec:
 ```
 - `persistentVolumeClaim: claimName:`
 	- Pod에 영구적으로 데이터를 저장할 수 있는 스토리지 연결
-#### 3-3. NFS 접속하여 volume 조회
+#### 3-3. Accessing NFS and Inspecting the Volume
 <img width="2425" height="198" alt="Pasted image 20260108113026" src="https://github.com/user-attachments/assets/52e6d70c-d590-4086-b94f-514060330476" />
 <img width="1447" height="266" alt="Pasted image 20260108113219" src="https://github.com/user-attachments/assets/6bcedf49-d515-4c37-a14b-12632901cdd7" />
 
 - `cluster5`는 NFS(스토리지)이므로 `.ssh/ssu-key.pem`으로 접속해야 함.
-#### 3-4. Pod 접속하여 volume 조회
+#### 3-4. Accessing the Pod and Inspecting the Volume
 - `yaml`파일에서 설정한 `mountPath: /mnt`에 마운트되었음을 확인인
 <img width="1644" height="671" alt="Pasted image 20260108113339" src="https://github.com/user-attachments/assets/3fac8030-a07e-420b-97c3-1235e2ef658b" />
 
 ### 4. PersistentVolume: Static Provisioning (2)
-#### 4-1. 모든 Worker Node에 volume 디렉토리 생성
+#### 4-1. Creating Volume Directories on All Worker Nodes
 - 각 Worker Node에 PV를 미리 만들어 두고 수동으로 연결결
 ```sh
 # Worker Node 1 (jde-cluster2)
@@ -427,7 +430,7 @@ $ kubectl get pv,pvc
 <img width="2156" height="300" alt="Pasted image 20260108120952" src="https://github.com/user-attachments/assets/5132a2e8-0ea6-4b38-8528-b8c254d966cc" />
 <img width="2428" height="1375" alt="Pasted image 20260108121007" src="https://github.com/user-attachments/assets/098e6529-6c8d-4627-af9f-339a3a3699fb" />
 
-#### 4-3. Pod 생성 및 Volume 마운트 (Local Volume & NFS)
+#### 4-3. Pod Creation and Volume Mounting (Local Volume & NFS)
 ```yaml
 # pod-volume3.yaml
 

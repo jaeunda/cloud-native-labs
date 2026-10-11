@@ -6,16 +6,19 @@ tags:
 aliases:
   - install-kpaas
 ---
-###### 실습
+
+# K-PaaS Cluster Installation and Networking
+
+###### Lab Overview
 1. K-PaaS 컨테이너 플랫폼 클러스터 설치
 2. 컨테이너 플랫폼 포털 배포
 3. Ingress-NGINX Controller에 네트워크 인터페이스와 Floating IP 연결
-### K-PaaS 클러스터 설치
-#### K-PaaS 컨테이너 플랫폼 클러스터 Deployment 다운로드
+### K-PaaS Cluster Installation
+#### Downloading the K-PaaS Container Platform Cluster Deployment
 - [K-PaaS 컨테이너 플랫폼 클러스터 Deployment 다운로드](https://github.com/K-PaaS/container-platform/blob/master/install-guide/standalone/cp-cluster-install-single.md#2.3)
 <img width="1871" height="312" alt="Pasted image 20251230105934" src="https://github.com/user-attachments/assets/cfbea78d-9542-43f3-9b61-729bdc136f1b" />
 
-#### K-PaaS 컨테이너 플랫폼 클러스터 설치 준비
+#### Preparing the K-PaaS Container Platform Cluster Installation
 - 설치에 필요한 환경변수 정의
 - 물리 인스턴스 - Kubernetes 역할 매핑
 <img width="1946" height="442" alt="Pasted image 20251230110552" src="https://github.com/user-attachments/assets/f7e16b10-fc8f-4893-ba85-b0bdafffd260" />
@@ -30,21 +33,21 @@ aliases:
 
 - Storage 타입: `nfs`
 - 각 노드의 hostname, private IP
-#### K-PaaS 컨테이너 플랫폼 클러스터 설치 확인
+#### Verifying the K-PaaS Container Platform Cluster Installation
 <img width="2249" height="1091" alt="Pasted image 20251230113647" src="https://github.com/user-attachments/assets/94e6bc45-cb21-4f56-af54-b228265bf504" />
 
-### 컨테이너 플랫폼 포털 배포
+### Container Platform Portal Deployment
 - [플랫폼 포털 배포](https://github.com/K-PaaS/container-platform/blob/master/install-guide/portal/cp-portal-standalone-guide.md)
 - PaaS 사용자 인터페이스 설치
 ![[Pasted image 20251230115356.png]]
-### Ingress-NGINX Controller 서비스 확인
+### Verifying the Ingress-NGINX Controller Service
 <img width="1950" height="172" alt="Pasted image 20251230115440" src="https://github.com/user-attachments/assets/9c6e5c63-a657-4953-8862-3500e2a88958" />
 
 - `ingeress-nginx-controller` external ip 확인
 	- Service Type: `LoadBalancer`
 	- External IP: `<none>` 
 - Ingress Controller는 떴지만 외부 접근 IP가 아직 없으므로 Floating IP 수동으로 연결해야 함.
-### 네트워크 인터페이스 생성
+### Network Interface Creation
 - 새로운 네트워크 인터페이스 생성
 - 대상 인스턴스: `cluster1` (Control Plane)
 - Ingress Controller는 결국 노드의 네트워크 인터페이스에 귀속됨

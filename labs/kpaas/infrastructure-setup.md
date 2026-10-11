@@ -11,7 +11,10 @@ aliases:
   - nfs
   - install-kpaas
 ---
-###### 실습
+
+# K-PaaS Infrastructure Setup
+
+###### Lab Overview
 - [NHN CLoud - Network Firewall](https://docs.nhncloud.com/ko/Security/Network-Firewall/ko/overview/)
 - [Github - K-Paas 컨테이너 플랫폼 설치 가이드](https://github.com/K-PaaS/container-platform/blob/master/install-guide/standalone/cp-cluster-install-single.md)
 1. Key Pair 설정
@@ -21,7 +24,7 @@ aliases:
 5. SSH 접속
 6. NFS 설치
 7. SSH Key 배포
-### Key Pair 설정
+### Key Pair Setup
 - Key Pair는 VM(Instance)에 SSH로 접속하기 위한 인증 수단
 - `public-key` + `ssu-key.pem`
 	- public key: 클라우드에 저장
@@ -29,12 +32,12 @@ aliases:
 <img width="1951" height="934" alt="Pasted image 20251229110224" src="https://github.com/user-attachments/assets/95e8d7b1-1f8e-45e3-9802-24b9044ba79a" />
 
 - 인스턴스 접속을 위한 보안 기반
-### Subnet 생성
+### Subnet Creation
 - Subnet 3개 생성 (`ssu1-subnet`, `ssu2-subnet`, `ssu3-subnet`)
 <img width="2786" height="1387" alt="Pasted image 20251229110451" src="https://github.com/user-attachments/assets/90b7ec89-bb18-4b08-bed8-2d873c3028b0" />
 <img width="2798" height="1481" alt="Pasted image 20251229110703" src="https://github.com/user-attachments/assets/442b5266-679d-4c07-92fe-6887e2ef5d94" />
 
-##### 각 Subnet에 라우팅 테이블 연결 
+##### Associating Route Tables with Subnets
 - VPC 내부에서도 Subnet은 독립된 네트워크 영역이므로
 - subnet 단독으로는 통신 불가 $\rightarrow$ 라우팅 테이블 연결
 	- 외부와의 통신
@@ -42,12 +45,12 @@ aliases:
 <img width="2781" height="1463" alt="Pasted image 20251229110752" src="https://github.com/user-attachments/assets/67f17813-a821-4e3d-94ed-67d3a96e4fd4" />
 <img width="2795" height="1477" alt="Pasted image 20251229110808" src="https://github.com/user-attachments/assets/013c012f-dc46-4529-8fdd-30f8beba330c" />
 
-##### 라우팅 테이블 연결 확인
+##### Verifying Route Table Associations
 <img width="2794" height="1466" alt="Pasted image 20251229110839" src="https://github.com/user-attachments/assets/4445d73d-5d80-492c-8b14-b24bee2c230d" />
 <img width="2787" height="1471" alt="Pasted image 20251229110943" src="https://github.com/user-attachments/assets/d4021f6c-3618-410a-b5c7-e616dd5a0caf" />
 <img width="2792" height="1346" alt="Pasted image 20251229111303" src="https://github.com/user-attachments/assets/87238e67-5891-4e12-8303-297e9c391285" />
 
-### Instant 5대 생성
+### Creating Five Instances
 <img width="658" height="669" alt="Pasted image 20251229113424" src="https://github.com/user-attachments/assets/db45cb0e-2c16-4ae5-b5db-b52318833a81" />
 
 - Control Plane (Master Node): `cluster1`
@@ -58,7 +61,7 @@ aliases:
 	- 실제 Pod 실행
 <img width="2781" height="1399" alt="Pasted image 20251229113156" src="https://github.com/user-attachments/assets/ae69f01a-3017-44f9-b7c5-7b0dea5eaf0e" />
 
-##### Instant 생성
+##### Instance Creation
 - Image: Ubuntu 22.04
 - Instance Type: `r2.c2m8` (vCPU: 2,  RAM: 8GB)
 - Instance 개수: 5개
@@ -68,7 +71,7 @@ aliases:
 <img width="2768" height="923" alt="Pasted image 20251229113533" src="https://github.com/user-attachments/assets/c0c34bc9-4375-4c57-8f01-02b56dde2704" />
 
 - Kubernetes 아키텍처 구조를 실제 인스턴스 단위로 구현
-### Floating IP 설정
+### Floating IP Configuration
 - Floating IP ($\leftrightarrow$ Fixed IP)
 	- Public IP의 역할: 외부에서 접속 가능한 IP
 	- Architecture 관점에서는 SDN(Software Defined Networking) 환경에서 구현된 동적 1:1 NAT(Network Address Translation) 매핑
@@ -81,7 +84,7 @@ aliases:
 
 - Master Node에 Floating IP 연결
 - 외부 접속 지점과 내부 구조 분리
-### MobaXterm을 이용한 인스턴스 접속
+### Connecting to Instances with MobaXterm
 <img width="2055" height="1330" alt="Pasted image 20251229114553" src="https://github.com/user-attachments/assets/b8f66ab3-6aac-4c7c-b9f1-57a79e09cf60" />
 
 - 접속 정보:
@@ -90,7 +93,7 @@ aliases:
 <img width="2879" height="1659" alt="Pasted image 20251229114612" src="https://github.com/user-attachments/assets/48bda632-3691-4904-81e6-9c57e6b1589d" />
 
 - `cluster1`: Control Plane에 직접 접속
-### NFS Storage 설치
+### NFS Storage Installation
 
 <img width="1818" height="289" alt="Pasted image 20251229115857" src="https://github.com/user-attachments/assets/38bd4ba0-3f7e-406e-92f9-d78551a33b9d" />
 <img width="1596" height="234" alt="Pasted image 20251229115908" src="https://github.com/user-attachments/assets/472ab14a-0c9d-44f2-9bb1-0e7c4bc75f6c" />
@@ -99,7 +102,7 @@ aliases:
 	- `sudo ssh ubuntu@192.168.1.9 -i ssu-key.pem`
 <img width="1402" height="882" alt="Pasted image 20251229121426" src="https://github.com/user-attachments/assets/e1096e7d-a6e8-4d00-909e-99ad5109d4a2" />
 
-##### `Cluster5`에 NFS Storage 설치
+##### Installing NFS Storage on `Cluster5`
 - NFS: 모든 노드가 공유하는 스토리지
 	- Kubernetes에서 PV, PVC의 기반
 <img width="1847" height="503" alt="Pasted image 20251229122510" src="https://github.com/user-attachments/assets/cc461dbf-3bc2-4959-a9d4-5f1e7f06e932" />
@@ -114,7 +117,7 @@ aliases:
 	- `sudo systemctl restart portmap`
 	- (확인) `sudo exportfs -v`
 - 클러스터 전체에서 사용할 공유 스토리지 구성 완료
-### SSH 생성 및 배포
+### SSH Key Generation and Distribution
 - Cluster 설치를 위해 Inventory의 모든 서버들에 SSH Key 복사
 - Master Node $\rightarrow$ Worker Node (`cluster2`, `cluster3`, `cluster4`) 접속 SSH Key
 	- 노드 간 SSH 통신 가능
