@@ -1,6 +1,6 @@
-# Cloud Infrastructure Labs
+# Cloud Native Labs
 
-Hands-on notes on cloud infrastructure, Kubernetes, and platform engineering. The central thread is understanding how virtual machines, networking, and shared storage support a container platform—and how applications are built, deployed, exposed, and operated on that platform.
+Cloud-native concepts and hands-on labs covering Kubernetes, cloud platforms, CI/CD, and AWS services. The central thread is understanding how virtual machines, networking, and shared storage support a container platform—and how applications are built, deployed, exposed, and operated on that platform.
 
 The main lab sequence follows a K-PaaS environment on NHN Cloud: infrastructure preparation, cluster installation, platform services, application delivery, and Kubernetes operations. Separate AWS labs explore Amazon EKS, GitLab CI/CD, and Amazon Bedrock. Concept notes connect these experiments to cloud-native architecture and distributed systems.
 
@@ -76,7 +76,7 @@ The infrastructure setup records five Ubuntu instances on NHN Cloud: one control
 ## Repository Layout
 
 ```text
-co-op-cloud/
+cloud-native-labs/
 ├── README.md
 ├── concepts/                  # Explanations and architecture notes
 ├── labs/
