@@ -3,35 +3,35 @@
   <desc id="description">A reading sequence from cloud infrastructure to K-PaaS platform assembly, application delivery, and Kubernetes operations. The NHN Cloud lab has one control plane, three workers, and a separate NFS server. AWS labs are separate explorations, not components of the K-PaaS environment. Arrows in the top row indicate reading order, not network traffic.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="#807283" stroke-width="1.5"/>
+      <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="#7c90aa" stroke-width="1.5"/>
     </marker>
     <style>
-      text { font-family: Arial, Helvetica, sans-serif; fill: #372e3a; }
+      text { font-family: Arial, Helvetica, sans-serif; fill: #25364b; }
       .title { font-size: 42px; font-weight: 700; letter-spacing: -1px; }
-      .subtitle { font-size: 23px; fill: #746978; }
+      .subtitle { font-size: 23px; fill: #65758b; }
       .label { font-size: 19px; font-weight: 700; letter-spacing: 1.6px; }
       .heading { font-size: 26px; font-weight: 700; }
-      .body { font-size: 22px; fill: #655768; }
-      .small { font-size: 20px; fill: #746978; }
+      .body { font-size: 22px; fill: #51657c; }
+      .small { font-size: 20px; fill: #65758b; }
       .node-title { font-size: 23px; font-weight: 700; }
-      .node-body { font-size: 20px; fill: #655768; }
-      .flow { fill: none; stroke: #807283; stroke-width: 2; marker-end: url(#arrow); }
-      .divider { stroke: #ded4da; stroke-width: 1; }
+      .node-body { font-size: 20px; fill: #51657c; }
+      .flow { fill: none; stroke: #7c90aa; stroke-width: 2; marker-end: url(#arrow); }
+      .divider { stroke: #dce4ef; stroke-width: 1; }
     </style>
   </defs>
 
-  <rect width="1440" height="960" rx="24" fill="#faf7f2"/>
-  <rect x="64" y="48" width="6" height="76" rx="3" fill="#866378"/>
+  <rect width="1440" height="960" rx="24" fill="#ffffff"/>
+  <rect x="64" y="48" width="6" height="76" rx="3" fill="#587ca9"/>
   <text x="92" y="81" class="title">From cloud resources to running applications</text>
   <text x="92" y="120" class="subtitle">Cloud Infrastructure Labs · setup, system behavior, and troubleshooting</text>
 
-  <text x="64" y="169" class="label" fill="#866378">THE MAIN READING PATH</text>
+  <text x="64" y="169" class="label" fill="#587ca9">THE MAIN READING PATH</text>
   <text x="1376" y="169" text-anchor="end" class="small">Arrows indicate learning sequence</text>
 
   <!-- Four equal cards establish the reading hierarchy before the lab topology. -->
   <g>
-    <rect x="64" y="194" width="304" height="252" rx="16" fill="#fffdfa" stroke="#e1d8de"/>
-    <rect x="64" y="194" width="304" height="6" rx="3" fill="#866378"/>
+    <rect x="64" y="194" width="304" height="252" rx="16" fill="#ffffff" stroke="#dce4ef"/>
+    <rect x="64" y="194" width="304" height="6" rx="3" fill="#587ca9"/>
     <text x="88" y="239" class="label">01 / FOUNDATIONS</text>
     <text x="88" y="280" class="heading">Cloud infrastructure</text>
     <text x="88" y="322" class="body">Instances and SSH</text>
@@ -41,8 +41,8 @@
   </g>
   <path d="M 376 320 H 392" class="flow"/>
   <g>
-    <rect x="400" y="194" width="304" height="252" rx="16" fill="#fffdfa" stroke="#e1d8de"/>
-    <rect x="400" y="194" width="304" height="6" rx="3" fill="#866378"/>
+    <rect x="400" y="194" width="304" height="252" rx="16" fill="#ffffff" stroke="#dce4ef"/>
+    <rect x="400" y="194" width="304" height="6" rx="3" fill="#587ca9"/>
     <text x="424" y="239" class="label">02 / PLATFORM</text>
     <text x="424" y="280" class="heading">K-PaaS assembly</text>
     <text x="424" y="322" class="body">Kubernetes cluster</text>
@@ -52,8 +52,8 @@
   </g>
   <path d="M 712 320 H 728" class="flow"/>
   <g>
-    <rect x="736" y="194" width="304" height="252" rx="16" fill="#fffdfa" stroke="#e1d8de"/>
-    <rect x="736" y="194" width="304" height="6" rx="3" fill="#866378"/>
+    <rect x="736" y="194" width="304" height="252" rx="16" fill="#ffffff" stroke="#dce4ef"/>
+    <rect x="736" y="194" width="304" height="6" rx="3" fill="#587ca9"/>
     <text x="760" y="239" class="label">03 / DELIVERY</text>
     <text x="760" y="280" class="heading">Application delivery</text>
     <text x="760" y="322" class="body">Build, analysis, and tests</text>
@@ -63,8 +63,8 @@
   </g>
   <path d="M 1048 320 H 1064" class="flow"/>
   <g>
-    <rect x="1072" y="194" width="304" height="252" rx="16" fill="#fffdfa" stroke="#e1d8de"/>
-    <rect x="1072" y="194" width="304" height="6" rx="3" fill="#866378"/>
+    <rect x="1072" y="194" width="304" height="252" rx="16" fill="#ffffff" stroke="#dce4ef"/>
+    <rect x="1072" y="194" width="304" height="6" rx="3" fill="#587ca9"/>
     <text x="1096" y="239" class="label">04 / OPERATIONS</text>
     <text x="1096" y="280" class="heading">Workload behavior</text>
     <text x="1096" y="322" class="body">Services and Ingress</text>
@@ -74,25 +74,25 @@
   </g>
 
   <!-- Inventory diagram: explicit roles without invented traffic or HA paths. -->
-  <rect x="64" y="478" width="1312" height="260" rx="16" fill="#f0eaf0" stroke="#e1d8de"/>
+  <rect x="64" y="478" width="1312" height="260" rx="16" fill="#f3f6fb" stroke="#dce4ef"/>
   <text x="88" y="521" class="label">K-PAAS LAB / NHN CLOUD</text>
   <text x="1352" y="521" class="small" text-anchor="end">Five Ubuntu instances · roles recorded in the setup notes</text>
   <g>
-    <rect x="88" y="548" width="280" height="124" rx="12" fill="#fffdfa"/>
+    <rect x="88" y="548" width="280" height="124" rx="12" fill="#ffffff"/>
     <text x="110" y="584" class="node-title">1 control plane</text>
     <text x="110" y="619" class="node-body">API server and controllers</text>
     <text x="110" y="650" class="node-body">Cluster coordination</text>
   </g>
   <g>
-    <rect x="392" y="548" width="656" height="124" rx="12" fill="#fffdfa"/>
+    <rect x="392" y="548" width="656" height="124" rx="12" fill="#ffffff"/>
     <text x="414" y="584" class="node-title">3 worker nodes</text>
     <text x="414" y="619" class="node-body">Application Pods and platform workloads</text>
-    <rect x="414" y="636" width="190" height="22" rx="5" fill="#ded1e0"/>
-    <rect x="626" y="636" width="190" height="22" rx="5" fill="#ded1e0"/>
-    <rect x="838" y="636" width="188" height="22" rx="5" fill="#ded1e0"/>
+    <rect x="414" y="636" width="190" height="22" rx="5" fill="#dce6f3"/>
+    <rect x="626" y="636" width="190" height="22" rx="5" fill="#dce6f3"/>
+    <rect x="838" y="636" width="188" height="22" rx="5" fill="#dce6f3"/>
   </g>
   <g>
-    <rect x="1072" y="548" width="280" height="124" rx="12" fill="#fffdfa"/>
+    <rect x="1072" y="548" width="280" height="124" rx="12" fill="#ffffff"/>
     <text x="1094" y="584" class="node-title">1 NFS server</text>
     <text x="1094" y="619" class="node-body">Shared storage</text>
     <text x="1094" y="650" class="node-body">PV / PVC experiments</text>
@@ -102,16 +102,16 @@
   <text x="64" y="783" class="label">PARALLEL AWS EXPLORATIONS</text>
   <text x="1376" y="783" class="small" text-anchor="end">Separate labs and concept notes</text>
   <g>
-    <rect x="64" y="804" width="304" height="104" rx="12" fill="#f7ebdd" stroke="#e6d7c6"/>
+    <rect x="64" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
     <text x="88" y="844" class="node-title">AWS foundations</text>
     <text x="88" y="878" class="node-body">Compute, storage, and VPC</text>
-    <rect x="400" y="804" width="304" height="104" rx="12" fill="#f7ebdd" stroke="#e6d7c6"/>
+    <rect x="400" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
     <text x="424" y="844" class="node-title">Amazon EKS</text>
     <text x="424" y="878" class="node-body">Images and web deployment</text>
-    <rect x="736" y="804" width="304" height="104" rx="12" fill="#f7ebdd" stroke="#e6d7c6"/>
+    <rect x="736" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
     <text x="760" y="844" class="node-title">GitLab CI/CD</text>
     <text x="760" y="878" class="node-body">Setup and delivery pipelines</text>
-    <rect x="1072" y="804" width="304" height="104" rx="12" fill="#f7ebdd" stroke="#e6d7c6"/>
+    <rect x="1072" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
     <text x="1096" y="844" class="node-title">Amazon Bedrock</text>
     <text x="1096" y="878" class="node-body">Knowledge bases and agents</text>
   </g>
