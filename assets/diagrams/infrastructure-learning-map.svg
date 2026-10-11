@@ -1,6 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960" role="img" aria-labelledby="title description">
-  <title id="title">Cloud Infrastructure Labs: Learning Map</title>
-  <desc id="description">A reading sequence from cloud infrastructure to K-PaaS platform assembly, application delivery, and Kubernetes operations. The NHN Cloud lab has one control plane, three workers, and a separate NFS server. AWS labs are separate explorations, not components of the K-PaaS environment. Arrows in the top row indicate reading order, not network traffic.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1120" viewBox="0 0 1440 1120" role="img" aria-labelledby="title description">
+  <title id="title">Cloud Infrastructure Labs: Learning and System Map</title>
+  <desc id="description">A reading sequence from cloud infrastructure to K-PaaS platform assembly, application delivery, and Kubernetes operations. The NHN Cloud lab has one control plane, three workers, and a separate NFS server. AWS labs are separate explorations, not components of the K-PaaS environment. The top arrows indicate reading order. Dashed connectors show cluster coordination. Solid connectors summarize an Ingress request example and NFS-backed storage relationships; workload placement varies by experiment.</desc>
+  <!--
+    Design process: retain the current white canvas, muted blue accents, typography,
+    rounded cards, reading path, and separate AWS summary. Select three structural
+    motifs from 3d69ddd: control-plane fan-out, Pod/PVC/PV/NFS relationships, and an
+    Ingress request path. Keep the detailed component inventories in the documents.
+    Use a cluster boundary to distinguish three workers from the separate NFS server.
+    Dashed coordination lines and solid example paths distinguish their meanings.
+    Sources: infrastructure setup, cluster installation, Services/Ingress, storage labs.
+  -->
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 1 L 8 5 L 0 9" fill="none" stroke="#7c90aa" stroke-width="1.5"/>
@@ -16,11 +25,13 @@
       .node-title { font-size: 23px; font-weight: 700; }
       .node-body { font-size: 20px; fill: #51657c; }
       .flow { fill: none; stroke: #7c90aa; stroke-width: 2; marker-end: url(#arrow); }
+      .detail { font-size: 18px; fill: #65758b; }
+      .coordination { fill: none; stroke: #7c90aa; stroke-width: 2; stroke-dasharray: 5 5; marker-end: url(#arrow); }
       .divider { stroke: #dce4ef; stroke-width: 1; }
     </style>
   </defs>
 
-  <rect width="1440" height="960" rx="24" fill="#ffffff"/>
+  <rect width="1440" height="1120" rx="24" fill="#ffffff"/>
   <rect x="64" y="48" width="6" height="76" rx="3" fill="#587ca9"/>
   <text x="92" y="81" class="title">From cloud resources to running applications</text>
   <text x="92" y="120" class="subtitle">Cloud Infrastructure Labs · setup, system behavior, and troubleshooting</text>
@@ -73,46 +84,82 @@
     <text x="1096" y="426" class="small">Observe, debug, and clean up</text>
   </g>
 
-  <!-- Inventory diagram: explicit roles without invented traffic or HA paths. -->
-  <rect x="64" y="478" width="1312" height="260" rx="16" fill="#f3f6fb" stroke="#dce4ef"/>
+  <!-- Three selected system views add relationships without service inventories. -->
+  <rect x="64" y="478" width="1312" height="420" rx="16" fill="#f3f6fb" stroke="#dce4ef"/>
   <text x="88" y="521" class="label">K-PAAS LAB / NHN CLOUD</text>
-  <text x="1352" y="521" class="small" text-anchor="end">Five Ubuntu instances · roles recorded in the setup notes</text>
-  <g>
-    <rect x="88" y="548" width="280" height="124" rx="12" fill="#ffffff"/>
-    <text x="110" y="584" class="node-title">1 control plane</text>
-    <text x="110" y="619" class="node-body">API server and controllers</text>
-    <text x="110" y="650" class="node-body">Cluster coordination</text>
-  </g>
-  <g>
-    <rect x="392" y="548" width="656" height="124" rx="12" fill="#ffffff"/>
-    <text x="414" y="584" class="node-title">3 worker nodes</text>
-    <text x="414" y="619" class="node-body">Application Pods and platform workloads</text>
-    <rect x="414" y="636" width="190" height="22" rx="5" fill="#dce6f3"/>
-    <rect x="626" y="636" width="190" height="22" rx="5" fill="#dce6f3"/>
-    <rect x="838" y="636" width="188" height="22" rx="5" fill="#dce6f3"/>
-  </g>
-  <g>
-    <rect x="1072" y="548" width="280" height="124" rx="12" fill="#ffffff"/>
-    <text x="1094" y="584" class="node-title">1 NFS server</text>
-    <text x="1094" y="619" class="node-body">Shared storage</text>
-    <text x="1094" y="650" class="node-body">PV / PVC experiments</text>
-  </g>
-  <text x="88" y="710" class="small">Infrastructure setup → cluster and platform installation → application deployment → resource cleanup</text>
+  <text x="1352" y="521" class="small" text-anchor="end">Five Ubuntu instances · one cluster + shared storage</text>
 
-  <text x="64" y="783" class="label">PARALLEL AWS EXPLORATIONS</text>
-  <text x="1376" y="783" class="small" text-anchor="end">Separate labs and concept notes</text>
+  <!-- Cluster coordination: one control plane and three workers. -->
+  <rect x="88" y="548" width="832" height="218" rx="12" fill="none" stroke="#dce4ef"/>
+  <text x="108" y="584" class="label">KUBERNETES</text>
+  <text x="108" y="615" class="detail">1 control plane</text>
+  <text x="108" y="643" class="detail">3 worker nodes</text>
+  <rect x="336" y="566" width="336" height="66" rx="12" fill="#ffffff"/>
+  <text x="504" y="593" class="node-title" text-anchor="middle">Control plane / cluster1</text>
+  <text x="504" y="619" class="detail" text-anchor="middle">API server · controllers</text>
+  <path d="M 504 632 V 650 H 232 V 666" class="coordination"/>
+  <path d="M 504 632 V 666" class="coordination"/>
+  <path d="M 504 632 V 650 H 776 V 666" class="coordination"/>
   <g>
-    <rect x="64" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
-    <text x="88" y="844" class="node-title">AWS foundations</text>
-    <text x="88" y="878" class="node-body">Compute, storage, and VPC</text>
-    <rect x="400" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
-    <text x="424" y="844" class="node-title">Amazon EKS</text>
-    <text x="424" y="878" class="node-body">Images and web deployment</text>
-    <rect x="736" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
-    <text x="760" y="844" class="node-title">GitLab CI/CD</text>
-    <text x="760" y="878" class="node-body">Setup and delivery pipelines</text>
-    <rect x="1072" y="804" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
-    <text x="1096" y="844" class="node-title">Amazon Bedrock</text>
-    <text x="1096" y="878" class="node-body">Knowledge bases and agents</text>
+    <rect x="108" y="672" width="248" height="74" rx="12" fill="#ffffff"/>
+    <text x="232" y="703" class="node-title" text-anchor="middle">Worker / cluster2</text>
+    <text x="232" y="730" class="detail" text-anchor="middle">Application + platform Pods</text>
+    <rect x="380" y="672" width="248" height="74" rx="12" fill="#ffffff"/>
+    <text x="504" y="703" class="node-title" text-anchor="middle">Worker / cluster3</text>
+    <text x="504" y="730" class="detail" text-anchor="middle">Application + platform Pods</text>
+    <rect x="652" y="672" width="248" height="74" rx="12" fill="#ffffff"/>
+    <text x="776" y="703" class="node-title" text-anchor="middle">Worker / cluster4</text>
+    <text x="776" y="730" class="detail" text-anchor="middle">Application + platform Pods</text>
+  </g>
+
+  <!-- Storage relationships: the NFS server sits outside the cluster boundary. -->
+  <rect x="944" y="548" width="408" height="218" rx="12" fill="none" stroke="#dce4ef"/>
+  <text x="968" y="584" class="label">PERSISTENT STORAGE</text>
+  <text x="968" y="615" class="detail">Shared volumes for workloads</text>
+  <rect x="968" y="634" width="96" height="38" rx="8" fill="#ffffff"/>
+  <text x="1016" y="660" class="node-body" text-anchor="middle">Pod</text>
+  <rect x="1100" y="634" width="96" height="38" rx="8" fill="#ffffff"/>
+  <text x="1148" y="660" class="node-body" text-anchor="middle">PVC</text>
+  <rect x="1232" y="634" width="96" height="38" rx="8" fill="#ffffff"/>
+  <text x="1280" y="660" class="node-body" text-anchor="middle">PV</text>
+  <path d="M 1072 653 H 1092" class="flow"/>
+  <path d="M 1204 653 H 1224" class="flow"/>
+  <path d="M 1280 672 V 690 H 1148 V 702" class="flow"/>
+  <rect x="968" y="708" width="360" height="38" rx="8" fill="#ffffff"/>
+  <text x="1148" y="734" class="node-body" text-anchor="middle">NFS server / cluster5</text>
+
+  <!-- One request example; the lab also explores other Service types. -->
+  <text x="88" y="799" class="label">REQUEST PATH / INGRESS EXAMPLE</text>
+  <rect x="88" y="818" width="200" height="40" rx="8" fill="#ffffff"/>
+  <text x="188" y="845" class="node-body" text-anchor="middle">Browser</text>
+  <rect x="328" y="818" width="220" height="40" rx="8" fill="#ffffff"/>
+  <text x="438" y="845" class="node-body" text-anchor="middle">Floating IP</text>
+  <rect x="588" y="818" width="264" height="40" rx="8" fill="#ffffff"/>
+  <text x="720" y="845" class="node-body" text-anchor="middle">Ingress controller</text>
+  <rect x="892" y="818" width="200" height="40" rx="8" fill="#ffffff"/>
+  <text x="992" y="845" class="node-body" text-anchor="middle">Service</text>
+  <rect x="1132" y="818" width="220" height="40" rx="8" fill="#ffffff"/>
+  <text x="1242" y="845" class="node-body" text-anchor="middle">Application Pods</text>
+  <path d="M 296 838 H 320" class="flow"/>
+  <path d="M 556 838 H 580" class="flow"/>
+  <path d="M 860 838 H 884" class="flow"/>
+  <path d="M 1100 838 H 1124" class="flow"/>
+  <text x="88" y="884" class="detail">Dashed: cluster coordination · Solid: request or storage relationships · Workload placement varies by experiment</text>
+
+  <text x="64" y="943" class="label">PARALLEL AWS EXPLORATIONS</text>
+  <text x="1376" y="943" class="small" text-anchor="end">Separate labs and concept notes</text>
+  <g>
+    <rect x="64" y="964" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
+    <text x="88" y="1004" class="node-title">AWS foundations</text>
+    <text x="88" y="1038" class="node-body">Compute, storage, and VPC</text>
+    <rect x="400" y="964" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
+    <text x="424" y="1004" class="node-title">Amazon EKS</text>
+    <text x="424" y="1038" class="node-body">Images and web deployment</text>
+    <rect x="736" y="964" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
+    <text x="760" y="1004" class="node-title">GitLab CI/CD</text>
+    <text x="760" y="1038" class="node-body">Setup and delivery pipelines</text>
+    <rect x="1072" y="964" width="304" height="104" rx="12" fill="#f5f8fc" stroke="#dce5f0"/>
+    <text x="1096" y="1004" class="node-title">Amazon Bedrock</text>
+    <text x="1096" y="1038" class="node-body">Knowledge bases and agents</text>
   </g>
 </svg>
